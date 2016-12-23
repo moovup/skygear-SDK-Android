@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.Log;
 
 import java.security.InvalidParameterException;
+import java.util.Map;
 
 /**
  * Container for Skygear.
@@ -217,7 +218,7 @@ public final class Container implements AuthResolver {
      * @param handler  the response handler
      */
     public void loginWithUsername(String username, String password, AuthResponseHandler handler) {
-        Request req = new LoginRequest(username, null, password);
+        Request req = new LoginRequest(username, null, password, null, null);
         req.responseHandler = new AuthResponseHandlerWrapper(this, handler);
 
         this.requestManager.sendRequest(req);
@@ -231,7 +232,23 @@ public final class Container implements AuthResolver {
      * @param handler  the response handler
      */
     public void loginWithEmail(String email, String password, AuthResponseHandler handler) {
-        Request req = new LoginRequest(null, email, password);
+        Request req = new LoginRequest(null, email, password, null, null);
+        req.responseHandler = new AuthResponseHandlerWrapper(this, handler);
+
+        this.requestManager.sendRequest(req);
+    }
+
+    /**
+     * Login with provider.
+     *
+     * @param authData the data
+     * @param provider the provider
+     */
+    public void loginWithProvider(Map<String, Object> authData,
+                                  String provider,
+                                  AuthResponseHandler handler) {
+
+        Request req = new LoginRequest(null, null, null, provider, authData);
         req.responseHandler = new AuthResponseHandlerWrapper(this, handler);
 
         this.requestManager.sendRequest(req);

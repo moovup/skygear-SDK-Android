@@ -2,6 +2,7 @@ package io.skygear.skygear;
 
 import java.security.InvalidParameterException;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * The Login request.
@@ -13,8 +14,10 @@ public class LoginRequest extends Request {
      * @param username the username
      * @param email    the email
      * @param password the password
+     * @param provider the provider
+     * @param authData data for provider
      */
-    public LoginRequest(String username, String email, String password) {
+    public LoginRequest(String username, String email, String password, String provider, Map<String, Object> authData) {
         super("auth:login");
 
         this.data = new HashMap<>();
@@ -22,6 +25,8 @@ public class LoginRequest extends Request {
         this.data.put("username", username);
         this.data.put("email", email);
         this.data.put("password", password);
+        this.data.put("provider", provider);
+        this.data.put("auth_data", authData);
     }
 
     @Override
@@ -29,6 +34,12 @@ public class LoginRequest extends Request {
         String username = (String) this.data.get("username");
         String email = (String) this.data.get("email");
         String password = (String) this.data.get("password");
+        String provider = (String) this.data.get("provider");
+
+        // login with provider
+        if (provider != null) {
+            return;
+        }
 
         if (username != null && email != null) {
             throw new InvalidParameterException("Username and email should not coexist");
