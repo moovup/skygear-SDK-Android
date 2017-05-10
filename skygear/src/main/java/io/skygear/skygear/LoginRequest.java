@@ -1,5 +1,7 @@
 package io.skygear.skygear;
 
+import org.json.JSONObject;
+
 import java.security.InvalidParameterException;
 import java.util.HashMap;
 import java.util.Map;
@@ -26,7 +28,7 @@ public class LoginRequest extends Request {
         this.data.put("email", email);
         this.data.put("password", password);
         this.data.put("provider", provider);
-        this.data.put("auth_data", authData);
+        this.data.put("auth_data", new JSONObject(authData));
     }
 
     @Override
