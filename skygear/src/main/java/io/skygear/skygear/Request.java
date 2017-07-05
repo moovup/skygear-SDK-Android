@@ -1,7 +1,7 @@
 package io.skygear.skygear;
 
-import com.android.volley.error.VolleyError;
 import com.android.volley.Response;
+import com.android.volley.error.VolleyError;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -107,10 +107,10 @@ public class Request implements Response.Listener<JSONObject>, Response.ErrorLis
 
                     requestError = new Error(errorCodeValue, errorString);
                 } catch (JSONException e) {
-                    requestError = new Error(networkErrorString);
+                    requestError = new Error(networkErrorString, error);
                 }
             } else {
-                requestError = new Error(error.getMessage());
+                requestError = new Error(error.getMessage(), error);
             }
 
             this.responseHandler.onFail(requestError);

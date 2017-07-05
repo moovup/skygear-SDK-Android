@@ -22,6 +22,20 @@ public class Error extends Exception {
     /**
      * Instantiates a new Error.
      * <p>
+     *     This constructor will creates an Error with
+     *     error code {@link Code#UNEXPECTED_ERROR}
+     * </p>
+     *
+     * @param detailMessage the detail message
+     * @param throwable error exception
+     */
+    public Error(String detailMessage, Throwable throwable) {
+        this(Code.UNEXPECTED_ERROR, detailMessage, throwable);
+    }
+
+    /**
+     * Instantiates a new Error.
+     * <p>
      *     This constructor will creates an Error and try to
      *     parse the error code value.
      * </p>
@@ -41,6 +55,12 @@ public class Error extends Exception {
      */
     public Error(Code code, String detailMessage) {
         super(detailMessage);
+
+        this.code = code;
+    }
+
+    public Error(Code code, String detaiMessage, Throwable throwable) {
+        super(detaiMessage, throwable);
 
         this.code = code;
     }
