@@ -107,12 +107,12 @@ public class Request implements Response.Listener<JSONObject>, Response.ErrorLis
                     String errorName = errorObject.getString("name");
                     JSONObject errorInfo = errorObject.optJSONObject("info");
 
-                    requestError = new Error(errorCodeValue, errorName, errorString, errorInfo);
+                    requestError = new Error(errorCodeValue, errorName, errorString, errorInfo, error);
                 } catch (JSONException e) {
-                    requestError = new Error(networkErrorString);
+                    requestError = new Error(networkErrorString, error);
                 }
             } else {
-                requestError = new Error(error.getMessage());
+                requestError = new Error(error.getMessage(), error);
             }
 
             this.responseHandler.onFail(requestError);

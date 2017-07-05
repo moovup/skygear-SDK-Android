@@ -21,7 +21,21 @@ public class Error extends Exception {
      * @param detailMessage the detail message
      */
     public Error(String detailMessage) {
-        this(Code.UNEXPECTED_ERROR.getValue(), null, detailMessage, null);
+        this(Code.UNEXPECTED_ERROR.getValue(), null, detailMessage, null, null);
+    }
+
+    /**
+     * Instantiates a new Error.
+     * <p>
+     *     This constructor will creates an Error with
+     *     error code {@link Code#UNEXPECTED_ERROR}
+     * </p>
+     *
+     * @param detailMessage the detail message
+     * @param throwable error exception
+     */
+    public Error(String detailMessage, Throwable throwable) {
+        this(Code.UNEXPECTED_ERROR.value, null, detailMessage, null, throwable);
     }
 
     /**
@@ -35,7 +49,7 @@ public class Error extends Exception {
      * @param detailMessage the detail message
      */
     public Error(int codeValue, String detailMessage) {
-        this(codeValue, null, detailMessage, null);
+        this(codeValue, null, detailMessage, null, null);
     }
 
     /**
@@ -47,7 +61,20 @@ public class Error extends Exception {
      * @param info          the info from error message
      */
     public Error(int codeValue, String name, String detailMessage, JSONObject info) {
-        super(Code.fromValue(codeValue).toString());
+        this(codeValue, name, detailMessage, info, null);
+    }
+
+    /**
+     * Instantiates a new Error.
+     *
+     * @param codeValue     the code
+     * @param name          the name of the error
+     * @param detailMessage the detail message
+     * @param info          the info from error message
+     * @param throwable     error exception
+     */
+    public Error(int codeValue, String name, String detailMessage, JSONObject info, Throwable throwable) {
+        super(Code.fromValue(codeValue).toString(), throwable);
 
         this.codeValue = codeValue;
         this.name = name;
