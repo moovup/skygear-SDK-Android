@@ -59,8 +59,8 @@ public class Error extends Exception {
         this.code = code;
     }
 
-    public Error(Code code, String detaiMessage, Throwable throwable) {
-        super(detaiMessage, throwable);
+    public Error(Code code, String detailMessage, Throwable throwable) {
+        super(detailMessage, throwable);
 
         this.code = code;
     }

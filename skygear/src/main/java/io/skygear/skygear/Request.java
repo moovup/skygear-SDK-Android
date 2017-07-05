@@ -107,7 +107,7 @@ public class Request implements Response.Listener<JSONObject>, Response.ErrorLis
 
                     requestError = new Error(errorCodeValue, errorString);
                 } catch (JSONException e) {
-                    requestError = new Error(networkErrorString, error);
+                    requestError = new Error(networkErrorString);
                 }
             } else {
                 requestError = new Error(error.getMessage(), error);
