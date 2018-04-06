@@ -69,9 +69,9 @@
     <string name="server_config">Server Configuration</string>
     <string name="configure">Configure</string>
     <string name="endpoint">Endpoint</string>
-    <string name="endpoint_hint">http://your-end-point.skygeario.com/</string>
+    <string name="endpoint_hint">https://myapp.skygeario.com/</string>
     <string name="api_key">API Key</string>
-    <string name="api_key_hint">your_api_key</string>
+    <string name="api_key_hint">dc0903fa85924776baa77df813901efc</string>
     <string name="who_am_i">Who Am I</string>
     <string name="set_image">Set Image</string>
     <string name="remove_image">Remove Image</string>
@@ -89,4 +89,13 @@
     <string name="confirm_password">Confirm Password</string>
     <string name="login_custom_token">Login with Custom Token</string>
     <string name="custom_token">Custom Token</string>
+    <string name="verify_user_data">Verify User Data</string>
+    <string name="verify_select_data">Select the user data to be verified. This example app only supports email and phone.</string>
+    <string name="verify_email">email</string>
+    <string name="verify_phone">phone</string>
+    <string name="verify_email_missing">email (missing)</string>
+    <string name="verify_phone_missing">phone (missing)</string>
+    <string name="verify_code">Verification Code</string>
+    <string name="enter_app_info">Enter the Skygear Endpoint and API key (you can obtain them from portal).</string>
+    <string name="not_configured">(not configured)</string>
 </resources>
