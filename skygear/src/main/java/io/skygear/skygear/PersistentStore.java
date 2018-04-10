@@ -116,9 +116,13 @@ class PersistentStore {
             this.currentUser = null;
         } else {
             try {
-                this.currentUser = RecordSerializer.deserialize(
-                        new JSONObject(currentUserString)
-                );
+                JSONObject currentUserJson = new JSONObject(currentUserString);
+                String userId = currentUserJson.getString("_id");
+                if (userId != null && !userId.contains("user/")) {
+                    userId = "user/" + userId;
+                    currentUserJson.put("_id", userId);
+                }
+                this.currentUser = RecordSerializer.deserialize(currentUserJson);
             } catch (JSONException e) {
                 Log.w(TAG, "Fail to decode saved current user object");
                 this.currentUser = null;
