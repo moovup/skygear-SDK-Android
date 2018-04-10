@@ -68,7 +68,7 @@ public abstract class RecordSaveResponseHandler implements ResponseHandler {
                         recordMap.put(perResultId, Record.fromJson(perResult));
                         break;
                     case "error":{
-                        errorMap.put(perResultId, ErrorSerializer.deserialize(perResult));
+                        errorMap.put(perResultId, ErrorSerializer.deserialize(perResult, null));
                         break;
                     }
                     default: {

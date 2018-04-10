@@ -39,7 +39,7 @@ public class Error extends Exception {
      * @param detailMessage the detail message
      */
     public Error(String detailMessage) {
-        this(Code.UNEXPECTED_ERROR.getValue(), null, detailMessage, null);
+        this(Code.UNEXPECTED_ERROR.getValue(), null, detailMessage, null, null);
     }
 
     /**
@@ -53,7 +53,7 @@ public class Error extends Exception {
      * @param detailMessage the detail message
      */
     public Error(int codeValue, String detailMessage) {
-        this(codeValue, null, detailMessage, null);
+        this(codeValue, null, detailMessage, null, null);
     }
 
     /**
@@ -63,9 +63,10 @@ public class Error extends Exception {
      * @param name          the name of the error
      * @param detailMessage the detail message
      * @param info          the info from error message
+     * @param throwable     the native error exception
      */
-    public Error(int codeValue, String name, String detailMessage, JSONObject info) {
-        super(Code.fromValue(codeValue).toString());
+    public Error(int codeValue, String name, String detailMessage, JSONObject info, Throwable throwable) {
+        super(Code.fromValue(codeValue).toString(), throwable);
 
         this.codeValue = codeValue;
         this.name = name;
@@ -80,7 +81,8 @@ public class Error extends Exception {
      * @throws JSONException if jsonObject does't contain error required attribute
      */
     public Error(JSONObject jsonObject) throws JSONException {
-        this(jsonObject.getInt("code"), jsonObject.getString("name"), jsonObject.getString("message"), jsonObject.optJSONObject("info"));
+        this(jsonObject.getInt("code"), jsonObject.getString("name"),
+                jsonObject.getString("message"), jsonObject.optJSONObject("info"), null);
     }
 
     /**

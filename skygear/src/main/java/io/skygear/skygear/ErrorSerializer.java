@@ -55,15 +55,16 @@ public class ErrorSerializer {
      * Deserialize an error from JSON object.
      *
      * @param jsonObject the JSON object
+     * @param throwable  the native error exception
      * @return the error object
      * @throws JSONException the json exception
      */
-    public static Error deserialize(JSONObject jsonObject) throws JSONException {
+    public static Error deserialize(JSONObject jsonObject, Throwable throwable) throws JSONException {
         String errorString = jsonObject.optString("message");
         int errorCodeValue = jsonObject.getInt("code");
         String errorName = jsonObject.optString("name");
         JSONObject errorInfo = jsonObject.optJSONObject("info");
 
-        return new Error(errorCodeValue, errorName, errorString, errorInfo);
+        return new Error(errorCodeValue, errorName, errorString, errorInfo, throwable);
     }
 }
