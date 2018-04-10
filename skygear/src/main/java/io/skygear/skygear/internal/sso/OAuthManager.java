@@ -221,7 +221,7 @@ public class OAuthManager {
             options.validate();
         } catch (Exception e) {
             if (handler != null) {
-                handler.onFail(new Error(e.getMessage()));
+                handler.onFail(new Error(e.getMessage(), e));
             }
             return;
         }
@@ -238,7 +238,7 @@ public class OAuthManager {
                             }
                         } catch (JSONException e) {
                             if (handler != null) {
-                                handler.onFail(new Error("Malformed server response"));
+                                handler.onFail(new Error("Malformed server response", e));
                             }
                         }
                     }
@@ -270,7 +270,7 @@ public class OAuthManager {
             }
         } catch (JSONException e) {
             if (handler != null) {
-                handler.onFail(new Error("Malformed server response"));
+                handler.onFail(new Error("Malformed server response", e));
             }
         }
     }
@@ -283,7 +283,7 @@ public class OAuthManager {
                 handler.onSuccess();
             }
         } catch (JSONException e) {
-            handler.onFail(new Error("Malformed server response"));
+            handler.onFail(new Error("Malformed server response", e));
         }
     }
 

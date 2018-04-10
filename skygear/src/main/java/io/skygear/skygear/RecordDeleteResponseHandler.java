@@ -78,7 +78,7 @@ public abstract class RecordDeleteResponseHandler implements ResponseHandler {
                                 "Malformed server response - Unknown result type \"%s\"",
                                 perResultType
                         );
-                        this.onDeleteFail(new Error(errorMessage));
+                        this.onDeleteFail(new Error(errorMessage, null));
                         return;
                     }
                 }
@@ -95,7 +95,7 @@ public abstract class RecordDeleteResponseHandler implements ResponseHandler {
                 this.onDeletePartialSuccess(successList.toArray(new String[]{}), errorMap);
             }
         } catch (JSONException e) {
-            this.onDeleteFail(new Error("Malformed server response"));
+            this.onDeleteFail(new Error("Malformed server response", e));
         }
     }
 

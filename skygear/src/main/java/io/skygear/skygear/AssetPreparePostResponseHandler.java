@@ -94,7 +94,7 @@ public abstract class AssetPreparePostResponseHandler implements ResponseHandler
 
             this.onPreparePostSuccess(postRequest);
         } catch (JSONException e) {
-            this.onPreparePostFail(new Error("Malformed server response"));
+            this.onPreparePostFail(new Error("Malformed server response", e));
         }
     }
 

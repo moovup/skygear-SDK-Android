@@ -54,11 +54,11 @@ public class WebOAuth {
                 callback.onSuccess(jsonObject);
             }
         } catch (JSONException e) {
-            callback.onFail(new Error("Malformed server response"));
+            callback.onFail(new Error("Malformed server response", e));
         }
     }
 
     public static void cancel() {
-        callback.onFail(new Error("User cancel the flow"));
+        callback.onFail(new Error("User cancel the flow", null));
     }
 }

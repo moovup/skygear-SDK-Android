@@ -44,7 +44,7 @@ public abstract class AuthResponseHandler implements ResponseHandler {
             JSONObject profile = result.getJSONObject("profile");
             this.onAuthSuccess(RecordSerializer.deserialize(profile));
         } catch (JSONException e) {
-            this.onAuthFail(new Error("Malformed server response"));
+            this.onAuthFail(new Error("Malformed server response", e));
         }
     }
 

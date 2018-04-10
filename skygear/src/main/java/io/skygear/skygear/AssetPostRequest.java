@@ -116,7 +116,7 @@ public class AssetPostRequest implements Response.Listener<String>, Response.Err
      */
     public void onValidationError(Exception exception) {
         if (this.responseHandler != null) {
-            this.responseHandler.onPostFail(this.asset, new Error(exception.getMessage()));
+            this.responseHandler.onPostFail(this.asset, new Error(exception.getMessage(), exception));
         }
     }
 
@@ -131,7 +131,7 @@ public class AssetPostRequest implements Response.Listener<String>, Response.Err
     @Override
     public void onErrorResponse(VolleyError error) {
         if (this.responseHandler != null) {
-            this.responseHandler.onPostFail(this.asset, new Error(error.getMessage()));
+            this.responseHandler.onPostFail(this.asset, new Error(error.getMessage(), error));
         }
     }
 

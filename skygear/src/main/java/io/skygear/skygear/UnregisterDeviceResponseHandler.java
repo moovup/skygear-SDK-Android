@@ -45,7 +45,7 @@ public abstract class UnregisterDeviceResponseHandler implements ResponseHandler
             String deviceId = result.getString("id");
             this.onUnregisterSuccess(deviceId);
         } catch (JSONException e) {
-            this.onUnregisterError(new Error("Malformed server response"));
+            this.onUnregisterError(new Error("Malformed server response", e));
         }
     }
 

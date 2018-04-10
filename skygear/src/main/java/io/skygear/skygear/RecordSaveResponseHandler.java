@@ -76,7 +76,7 @@ public abstract class RecordSaveResponseHandler implements ResponseHandler {
                                 "Malformed server response - Unknown result type \"%s\"",
                                 perResultType
                         );
-                        this.onSaveFail(new Error(errorMessage));
+                        this.onSaveFail(new Error(errorMessage, null));
                         return;
                     }
                 }
@@ -96,7 +96,7 @@ public abstract class RecordSaveResponseHandler implements ResponseHandler {
                 this.onPartiallySaveSuccess(recordMap, errorMap);
             }
         } catch (JSONException e) {
-            this.onSaveFail(new Error("Malformed server response"));
+            this.onSaveFail(new Error("Malformed server response", e));
         }
     }
 

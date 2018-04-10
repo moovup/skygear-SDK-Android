@@ -52,7 +52,7 @@ public abstract class RecordQueryResponseHandler implements ResponseHandler {
 
             this.onQuerySuccess(records);
         } catch (JSONException e) {
-            this.onQueryError(new Error("Malformed server response"));
+            this.onQueryError(new Error("Malformed server response", e));
         }
     }
 

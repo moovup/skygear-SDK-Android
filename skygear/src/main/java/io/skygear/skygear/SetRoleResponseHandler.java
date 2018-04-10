@@ -53,7 +53,7 @@ public abstract class SetRoleResponseHandler implements ResponseHandler {
 
             this.onSetSuccess(roles);
         } catch (JSONException e) {
-            this.onSetFail(new Error("Malformed server response"));
+            this.onSetFail(new Error("Malformed server response", e));
         }
     }
 

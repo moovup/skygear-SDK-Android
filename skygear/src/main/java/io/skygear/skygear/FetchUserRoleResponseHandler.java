@@ -52,7 +52,7 @@ public abstract class FetchUserRoleResponseHandler implements ResponseHandler {
             Map<String, Role[]> userRoles = this.parseUserRoles(result.getJSONObject("result"));
             this.onFetchSuccess(userRoles);
         } catch (JSONException e) {
-            this.onFetchFail(new Error("Malformed server response"));
+            this.onFetchFail(new Error("Malformed server response", e));
         }
     }
 

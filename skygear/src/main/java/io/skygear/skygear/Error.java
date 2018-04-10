@@ -37,9 +37,10 @@ public class Error extends Exception {
      * </p>
      *
      * @param detailMessage the detail message
+     * @param throwable     the native error exception
      */
-    public Error(String detailMessage) {
-        this(Code.UNEXPECTED_ERROR.getValue(), null, detailMessage, null, null);
+    public Error(String detailMessage, Throwable throwable) {
+        this(Code.UNEXPECTED_ERROR.getValue(), null, detailMessage, null, throwable);
     }
 
     /**

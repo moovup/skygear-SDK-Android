@@ -45,7 +45,7 @@ public abstract class RegisterDeviceResponseHandler implements ResponseHandler {
             String deviceId = result.getString("id");
             this.onRegisterSuccess(deviceId);
         } catch (JSONException e) {
-            this.onRegisterError(new Error("Malformed server response"));
+            this.onRegisterError(new Error("Malformed server response", e));
         }
     }
 
