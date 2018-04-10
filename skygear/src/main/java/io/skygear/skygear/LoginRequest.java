@@ -40,21 +40,52 @@ public class LoginRequest extends Request {
         this.data.put("password", password);
     }
 
+    /**
+     * Instantiates a new Login request with provider.
+     *
+     * @param providerID       the provider identifier
+     * @param providerAuthData the provider specific auth data
+     */
+    public LoginRequest(String providerID, Map<String, Object> providerAuthData) {
+        super("auth:login");
+
+        this.data = new HashMap<>();
+
+        this.data.put("provider", providerID);
+        this.data.put("provider_auth_data", providerAuthData);
+    }
+
     @Override
     protected void validate() throws Exception {
+        String providerID = (String) this.data.get("provider");
+        Map providerAuthData = (Map) this.data.get("provider_auth_data");
         Map authData = (Map) this.data.get("auth_data");
         String password = (String) this.data.get("password");
 
-        if (authData == null) {
-            throw new InvalidParameterException("Auth data should not be null");
-        }
+        if (providerID != null || providerAuthData != null) {
+            if (providerID != null) {
+                throw new InvalidParameterException("Provider ID should not be null");
+            }
 
-        if (authData.isEmpty()) {
-            throw new InvalidParameterException("Auth data should not be empty");
-        }
+            if (providerAuthData != null) {
+                throw new InvalidParameterException("Provider auth data should not be null");
+            }
 
-        if (password == null) {
-            throw new InvalidParameterException("Password should not be null");
+            if (providerAuthData.isEmpty()) {
+                throw new InvalidParameterException("Provider auth data should not be empty");
+            }
+        } else {
+            if (authData == null) {
+                throw new InvalidParameterException("Auth data should not be null");
+            }
+
+            if (authData.isEmpty()) {
+                throw new InvalidParameterException("Auth data should not be empty");
+            }
+
+            if (password == null) {
+                throw new InvalidParameterException("Password should not be null");
+            }
         }
     }
 }

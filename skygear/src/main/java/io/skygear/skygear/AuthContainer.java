@@ -184,6 +184,20 @@ public class AuthContainer implements AuthResolver {
     }
 
     /**
+     * Login with provider.
+     *
+     * @param providerID       the provider identifier
+     * @param providerAuthData the provider specific auth data
+     * @param handler          the response handler
+     */
+    public void loginWithProvider(String providerID, Map<String, Object> providerAuthData, AuthResponseHandler handler) {
+        Request req = new LoginRequest(providerID, providerAuthData);
+        req.responseHandler = new AuthResponseHandlerWrapper(this, handler);
+
+        this.getContainer().requestManager.sendRequest(req);
+    }
+
+    /**
      * Login with username.
      *
      * @param username the username
