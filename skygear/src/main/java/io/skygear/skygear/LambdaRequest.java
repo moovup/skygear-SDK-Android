@@ -152,7 +152,7 @@ public class LambdaRequest extends Request {
 
 
     private boolean isCompatibleArgument(Object arg) {
-        if (arg == null) {
+        if (arg == null || arg == JSONObject.NULL) {
             return true;
         }
 
