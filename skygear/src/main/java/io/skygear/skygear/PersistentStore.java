@@ -86,8 +86,7 @@ class PersistentStore {
     void restore() {
         SharedPreferences pref = this.context.getSharedPreferences(SKYGEAR_PREF_SPACE, Context.MODE_PRIVATE);
 
-        this.restoreAuthUser(pref);
-        this.restoreAccessToken(pref);
+        this.restoreAuthData(pref);
         this.restoreDefaultAccessControl(pref);
         this.restoreDeviceId(pref);
         this.restoreDeviceToken(pref);
@@ -109,22 +108,75 @@ class PersistentStore {
         prefEditor.apply();
     }
 
+    private void restoreAuthData(SharedPreferences pref) {
+        String currentUserString = pref.getString(CURRENT_USER_KEY, null);
+        if (currentUserString == null) {
+            this.currentUser = null;
+            this.accessToken = null;
+            return;
+        }
+
+        JSONObject currentUserJson;
+        String userId;
+        Boolean isWithOldFormat;
+        try {
+            currentUserJson = new JSONObject(currentUserString);
+            userId = currentUserJson.getString("_id");
+            isWithOldFormat = !userId.contains("user/");
+        } catch (JSONException e) {
+            Log.w(TAG, "Fail to decode saved current user object", e);
+            this.removeStoredAuthData(pref);
+            return;
+        }
+
+        if (isWithOldFormat) {
+            this.restoreAuthDataWithOldFormat(pref);
+        } else {
+            this.restoreAuthUser(pref);
+            this.restoreAccessToken(pref);
+        }
+    }
+
+    private void removeStoredAuthData(SharedPreferences pref) {
+        this.currentUser = null;
+        this.accessToken = null;
+        SharedPreferences.Editor editor = pref.edit();
+        editor.remove(CURRENT_USER_KEY);
+        editor.remove(ACCESS_TOKEN_KEY);
+        editor.apply();
+    }
+
+    private void restoreAuthDataWithOldFormat(SharedPreferences pref) {
+        try {
+            JSONObject currentUserJson = new JSONObject(pref.getString(CURRENT_USER_KEY, null));
+            String userId = currentUserJson.getString("_id");
+            currentUserJson.put("_id", "user/" + userId);
+            this.currentUser = RecordSerializer.deserialize(currentUserJson);
+            this.accessToken = currentUserJson.getString("access_token");
+        } catch (JSONException e) {
+            Log.w(TAG, "Fail to decode saved current user object with old format", e);
+            this.removeStoredAuthData(pref);
+        }
+
+        if (this.currentUser != null && this.accessToken != null) {
+            SharedPreferences.Editor editor = pref.edit();
+            this.saveAuthUser(editor);
+            this.saveAccessToken(editor);
+            editor.apply();
+        }
+    }
+
     private void restoreAuthUser(SharedPreferences pref) {
         String currentUserString = pref.getString(CURRENT_USER_KEY, null);
-
         if (currentUserString == null) {
             this.currentUser = null;
         } else {
             try {
-                JSONObject currentUserJson = new JSONObject(currentUserString);
-                String userId = currentUserJson.getString("_id");
-                if (userId != null && !userId.contains("user/")) {
-                    userId = "user/" + userId;
-                    currentUserJson.put("_id", userId);
-                }
-                this.currentUser = RecordSerializer.deserialize(currentUserJson);
+                this.currentUser = RecordSerializer.deserialize(
+                        new JSONObject(currentUserString)
+                );
             } catch (JSONException e) {
-                Log.w(TAG, "Fail to decode saved current user object");
+                Log.w(TAG, "Fail to decode saved current user object", e);
                 this.currentUser = null;
             }
         }
