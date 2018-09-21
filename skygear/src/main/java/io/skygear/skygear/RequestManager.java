@@ -46,7 +46,6 @@ import java.util.Set;
  */
 public class RequestManager {
     /** The default request timeout in milliseconds */
-//    public static final int DEFAULT_TIMEOUT = DefaultRetryPolicy.DEFAULT_TIMEOUT_MS;
     public static final int DEFAULT_TIMEOUT = 10000;
 
     private static final String TAG = "Skygear SDK";
