@@ -46,7 +46,7 @@ import java.util.Set;
  */
 public class RequestManager {
     /** The default request timeout in milliseconds */
-    public static final int DEFAULT_TIMEOUT = 10000;
+    public static int DEFAULT_TIMEOUT;
 
     private static final String TAG = "Skygear SDK";
 
@@ -83,6 +83,10 @@ public class RequestManager {
      * @param context the context
      * @param config  the config
      */
+
+    public void setDefaultTimeout(){
+        DEFAULT_TIMEOUT = 10000;
+    }
     public RequestManager(Context context, Configuration config) {
         this.context = context;
         this.queue = Volley.newRequestQueue(context);
