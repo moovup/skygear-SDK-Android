@@ -51,7 +51,7 @@ class PubsubClient implements WebSocketClientImpl.EventHandler {
 
     private static final String TAG = "Skygear SDK";
     private static final long DEFAULT_RETRY_LIMIT = RETRY_LIMIT_INFINITE;
-    private static final long DEFAULT_RETRY_WAIT = 5000;
+    private static final long DEFAULT_RETRY_WAIT = 10000;
 
     /**
      * The Handlers Map
