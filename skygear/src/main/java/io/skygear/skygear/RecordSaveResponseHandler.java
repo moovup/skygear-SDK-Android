@@ -67,6 +67,7 @@ public abstract class RecordSaveResponseHandler implements ResponseHandler {
                 switch (perResultType) {
                     case "record":
                         recordMap.put(perResultId, Record.fromJson(perResult));
+                        System.out.println("type "+Record.fromJson(perResult));
                         break;
                     case "error":{
                         errorMap.put(perResultId, ErrorSerializer.deserialize(perResult, null));
