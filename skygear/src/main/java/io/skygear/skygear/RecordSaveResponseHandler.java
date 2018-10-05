@@ -57,11 +57,12 @@ public abstract class RecordSaveResponseHandler implements ResponseHandler {
             JSONArray results = result.getJSONArray("result");
             Map<String, Record> recordMap = new TreeMap<>();
             Map<String, Error> errorMap = new TreeMap<>();
-
+            System.out.println("resultt "+results);
             for (int idx = 0; idx < results.length(); idx++) {
                 JSONObject perResult = results.getJSONObject(idx);
                 String perResultId = perResult.getString("_id").split("/", 2)[1];
                 String perResultType = perResult.getString("_type");
+                System.out.println("type "+perResultType);
 
                 switch (perResultType) {
                     case "record":
