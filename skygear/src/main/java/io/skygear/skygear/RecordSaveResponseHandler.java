@@ -38,6 +38,7 @@ public abstract class RecordSaveResponseHandler implements ResponseHandler {
     public void onSuccess(JSONObject result) {
         try {
             JSONArray results = result.getJSONArray("result");
+            System.out.println("applicant",result);
             Map<String, Record> recordMap = new TreeMap<>();
             Map<String, Error> errorMap = new TreeMap<>();
 
